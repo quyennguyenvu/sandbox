@@ -1,10 +1,21 @@
 syntax = "proto3";
-
 package customer;
 
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
 service Customer {
-    rpc Get(Filter) returns (stream Request){}
-    rpc Create(Request) returns (Response) {}
+    rpc List(ListFilter) returns (stream Request){
+        option (google.api.http) = {
+            get: "/v1/customer"
+        };
+    }
+    rpc Create(Request) returns (Response) {
+        option (google.api.http) = {
+            post: "/v1/customer"
+            body: "*"
+        };
+    }
 }
 
 message Request {
@@ -21,6 +32,7 @@ message Request {
 
     }
     repeated Address addresses = 5;
+    google.protobuf.Timestamp created_at = 6;
 }
 
 message Response {
@@ -28,6 +40,6 @@ message Response {
     bool success = 2;
 }
 
-message Filter {
+message ListFilter {
     string keyword = 1;
 }

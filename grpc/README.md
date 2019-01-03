@@ -1,0 +1,1 @@
+run `./protoc-gen.sh <endpoint>` to generate pb and swagger files

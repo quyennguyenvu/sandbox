@@ -24,6 +24,10 @@
 #   go-tests = true
 #   unused-packages = true
 
+required = [
+    "github.com/golang/protobuf/protoc-gen-go",
+    "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway"
+]
 
 [prune]
   go-tests = true
@@ -32,7 +36,3 @@
 [[constraint]]
   branch = "master"
   name = "github.com/streadway/amqp"
-
-[[constraint]]
-  name = "github.com/nats-io/go-nats"
-  version = "1.7.0"

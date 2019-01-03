@@ -1,0 +1,35 @@
+syntax = "proto3";
+package todo;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/annotations.proto";
+
+service Todo {
+    rpc List(ListFilter) returns (stream Request){
+        option (google.api.http) = {
+            get: "/v1/todo"
+        };
+    }
+    rpc Create(Request) returns (Response) {
+        option (google.api.http) = {
+            post: "/v1/todo"
+            body: "*"
+        };
+    }
+}
+
+message Request {
+    int32 id = 1;
+    string title = 2;
+    string description = 3;
+    google.protobuf.Timestamp reminder = 4;
+}
+
+message Response {
+    int32 id = 1;
+    bool success = 2;
+}
+
+message ListFilter {
+    string keyword = 1;
+}

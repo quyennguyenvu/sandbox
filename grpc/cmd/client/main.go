@@ -4,8 +4,10 @@ import (
 	"context"
 	"io"
 	"log"
-	"sandbox/grpc/customer"
+	"os"
+	"sandbox/grpc/pb/customer"
 
+	"github.com/joho/godotenv"
 	"google.golang.org/grpc"
 )
 
@@ -14,7 +16,13 @@ const (
 )
 
 func main() {
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	grpcPort := os.Getenv("GRPC_PORT")
+
+	conn, err := grpc.Dial("localhost:"+grpcPort, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -62,7 +70,7 @@ func main() {
 		},
 	}
 	createCustomer(client, cust)
-	filter := &customer.Filter{Keyword: ""}
+	filter := &customer.ListFilter{Keyword: ""}
 	getCustomers(client, filter)
 
 }
@@ -77,8 +85,8 @@ func createCustomer(client customer.CustomerClient, customer *customer.Request) 
 	}
 }
 
-func getCustomers(client customer.CustomerClient, filter *customer.Filter) {
-	stream, err := client.Get(context.Background(), filter)
+func getCustomers(client customer.CustomerClient, filter *customer.ListFilter) {
+	stream, err := client.List(context.Background(), filter)
 	if err != nil {
 		log.Fatalf("Error on get customers: %v", err)
 	}
