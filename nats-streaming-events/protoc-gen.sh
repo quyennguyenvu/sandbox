@@ -1,0 +1,1 @@
+protoc -I./pb -I$GOPATH/src --go_out=plugins=grpc:./pb ./pb/*.proto
