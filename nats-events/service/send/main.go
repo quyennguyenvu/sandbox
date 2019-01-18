@@ -5,7 +5,7 @@ import (
 	"sandbox/nats-events/pb"
 	"time"
 
-	"github.com/nats-io/go-nats"
+	nats "github.com/nats-io/go-nats"
 	natsp "github.com/nats-io/go-nats/encoders/protobuf"
 )
 

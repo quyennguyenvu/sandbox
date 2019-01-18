@@ -6,7 +6,7 @@ import (
 	"sandbox/nats-basic/pb"
 
 	"github.com/golang/protobuf/proto"
-	"github.com/nats-io/go-nats"
+	nats "github.com/nats-io/go-nats"
 )
 
 var nc *nats.Conn
