@@ -1,16 +1,25 @@
 package main
 
 import (
-	"github.com/davecgh/go-spew/spew"
+	"fmt"
 	"log"
 	"sandbox/blockchain/pkg"
 	"time"
+
+	"github.com/davecgh/go-spew/spew"
 )
 
 func main() {
 	go func() {
 		t := time.Now()
-		genesisBlock := pkg.Block{0, t.String(), 0, "", ""}
+		fmt.Println(t.String())
+		genesisBlock := pkg.Block{
+			Index:     0,
+			TimeStamp: t.String(),
+			BPM:       0,
+			Hash:      "",
+			PrevHash:  "",
+		}
 		spew.Dump(genesisBlock)
 		pkg.Blockchain = append(pkg.Blockchain, genesisBlock)
 	}()
